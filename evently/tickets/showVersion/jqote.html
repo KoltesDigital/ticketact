@@ -1,0 +1,10 @@
+<% var tr = this.tr; %>
+<h1><%= tr('Version') %></h1>
+<div>
+<div><%= tr('Name:') %></div>
+<div><%= escape(this.version.name) %></div>
+<div><%= tr('Description:') %></div>
+<div><%= escape(this.version.description) %></div>
+<hr/>
+<a href="#roadmap/<%= this.version._id %>"><%= tr('Roadmap') %></a>
+</div>

@@ -1,0 +1,17 @@
+<% var tr = this.tr; %>
+<h1><%= tr('Board') %></h1>
+<div>
+<div><%= tr('Name:') %></div>
+<div><%= escape(this.board.name) %></div>
+<div><%= tr('Description:') %></div>
+<div><%= escape(this.board.description) %></div>
+<hr/>
+<div><%= tr('Stages:') %></div>
+<div id="stages">
+</div>
+<form id="addStage">
+<input name="name"/>&nbsp;<button type="submit" data-icon="add"></button>
+</form>
+<hr/>
+<a href="#kanban/<%= this.board._id %>"><%= tr('Kanban view') %></a>
+</div>

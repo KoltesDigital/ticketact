@@ -1,0 +1,15 @@
+<% var tr = this.tr; %>
+<h1><%= tr('Roadmap') %></h1>
+<div>
+<% var types = [
+	tr('Tickets concerned by the version:'),
+	tr('Tickets targeting the version:')
+];
+for (var type in types) { %>
+<div><%= types[type] %></div>
+<% for (var i in this.tickets[type]) {
+	var ticket = this.tickets[type][i]; %>
+<div><a href="#<%= escape(ticket._id) %>"><%= escape(ticket.name) %></a></div>
+<% }
+} %>
+</div>

@@ -1,0 +1,19 @@
+<% var tr = this.tr; %>
+<h1><%= tr('Type') %></h1>
+<div>
+<div><%= tr('Name:') %></div>
+<div><%= escape(this.type.name) %></div>
+<div><%= tr('Description:') %></div>
+<div><%= escape(this.type.description) %></div>
+<hr/>
+<div><%= tr('Favorite board:') %></div>
+<form id="favoriteBoard">
+<div><select name="board" class="editable">
+<option value=""><%= tr('None') %></option>
+<% for (var i in cache.boards) { %>
+<option value="<%= escape(cache.boards[i]._id) %>"><%= escape(cache.boards[i].name) %></option>
+<% } %>
+</select></div>
+<button type="submit" data-icon="save"><%= tr('Save') %></button>
+</form>
+</div>
