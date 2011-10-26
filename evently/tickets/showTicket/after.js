@@ -220,115 +220,117 @@ function(e, ticket, comments, cards) {
 		return false;
 	});
 
-	var poker = elem.find('#poker');
-	var pokerContainer = elem.find('#pokerContainer');
-
-	function removeCards(callback) {
-		stopPolling();
-
-		var docs = [];
-
-		$.each(cards, function(i, card) {
-			docs.push(card);
-		});
-
-		db.bulkRemove({
-			docs: docs
-		}, {
-			success: function() {
-				cards = {};
-				callback();
-			}
-		});
-	}
-
-	if (userCtx.name && cards[userCtx.name] || !ticket.poker) {
-		var cardCount = {};
-		for (var i in cards) {
-			var card = cards[i].card;
-			cardCount[card] = (cardCount[card] || 0) + 1;
-			pokerContainer.append($('<div/>').text(tr('&user has played &card on &date.', {
-				user: i,
-				card: card,
-				date: formatDate(cards[i].date)
-			})));
-		}
-		var countResults = [];
-		for (var i in cardCount) {
-			countResults.push({
-				card: i,
-				count: cardCount[i]
+	if (configuration.pokerCards) {
+		var poker = elem.find('#poker');
+		var pokerContainer = elem.find('#pokerContainer');
+	
+		function removeCards(callback) {
+			stopPolling();
+	
+			var docs = [];
+	
+			$.each(cards, function(i, card) {
+				docs.push(card);
+			});
+	
+			db.bulkRemove({
+				docs: docs
+			}, {
+				success: function() {
+					cards = {};
+					callback();
+				}
 			});
 		}
-		if (countResults.length > 0) {
-			countResults.sort(function(a, b) {
-				return b.count - a.count;
-			});
-			pokerContainer.append($('<div/>').text(tr('Results:')));
-			for (var i in countResults) {
-				pokerContainer.append($('<div/>').text(tr('&card (&count)', countResults[i])));
+	
+		if (userCtx.name && cards[userCtx.name] || !ticket.poker) {
+			var cardCount = {};
+			for (var i in cards) {
+				var card = cards[i].card;
+				cardCount[card] = (cardCount[card] || 0) + 1;
+				pokerContainer.append($('<div/>').text(tr('&user has played &card on &date.', {
+					user: i,
+					card: card,
+					date: formatDate(cards[i].date)
+				})));
 			}
-		}
-	}
-
-	if (ticket.poker) {
-		if (!userCtx.name) {
-			pokerContainer.append($('<div/>').text(tr('Poker is being played, log in to play.')));
-		} else if (!cards[userCtx.name]) {
-			function click() {
-				var card = {
-					doctype: 'card',
-					ticket: ticket._id,
-					date: now(),
-					user: userCtx.name,
-					card: $(this).text()
-				};
-
-				db.saveDoc(card, {
-					success: reloadPage
+			var countResults = [];
+			for (var i in cardCount) {
+				countResults.push({
+					card: i,
+					count: cardCount[i]
 				});
 			}
-
-			for (var i in configuration.pokerCards) {
-				pokerContainer.append($('<button type="button"/>').text(configuration.pokerCards[i]).click(click));
+			if (countResults.length > 0) {
+				countResults.sort(function(a, b) {
+					return b.count - a.count;
+				});
+				pokerContainer.append($('<div/>').text(tr('Results:')));
+				for (var i in countResults) {
+					pokerContainer.append($('<div/>').text(tr('&card (&count)', countResults[i])));
+				}
 			}
-			pokerContainer.append('<br/>');
 		}
-		if (userCtx.name == ticket.dealer) {
-			var redeal = $('<button type="button" name="redeal" data-icon="redeal"/>').text(tr('Redeal'));
-			redeal.click(function() {
-				removeCards(showTicket);
+	
+		if (ticket.poker) {
+			if (!userCtx.name) {
+				pokerContainer.append($('<div/>').text(tr('Poker is being played, log in to play.')));
+			} else if (!cards[userCtx.name]) {
+				function click() {
+					var card = {
+						doctype: 'card',
+						ticket: ticket._id,
+						date: now(),
+						user: userCtx.name,
+						card: $(this).text()
+					};
+	
+					db.saveDoc(card, {
+						success: reloadPage
+					});
+				}
+	
+				for (var i in configuration.pokerCards) {
+					pokerContainer.append($('<button type="button"/>').text(configuration.pokerCards[i]).click(click));
+				}
+				pokerContainer.append('<br/>');
+			}
+			if (userCtx.name == ticket.dealer) {
+				var redeal = $('<button type="button" name="redeal" data-icon="redeal"/>').text(tr('Redeal'));
+				redeal.click(function() {
+					removeCards(showTicket);
+				});
+				pokerContainer.append(redeal);
+	
+				var stop = $('<button type="button" name="stop" data-icon="stop"/>').text(tr('Stop'));
+				stop.click(function() {
+					delete ticket.poker;
+					saveTicket();
+				});
+				pokerContainer.append(stop);
+			}
+		} else if (userCtx.name) {
+			var deal = $('<button type="button" name="deal" data-icon="deal"/>').text(tr('Deal'));
+			deal.click(function() {
+				removeCards(function() {
+					ticket.poker = true;
+					ticket.dealer = userCtx.name;
+					saveTicket();
+				});
 			});
-			pokerContainer.append(redeal);
-
-			var stop = $('<button type="button" name="stop" data-icon="stop"/>').text(tr('Stop'));
-			stop.click(function() {
-				delete ticket.poker;
-				saveTicket();
-			});
-			pokerContainer.append(stop);
+			pokerContainer.append(deal);
+	
+			if (ticket.dealer == userCtx.name) {
+				var resume = $('<button type="button" name="resume" data-icon="resume"/>').text(tr('Resume'));
+				resume.click(function() {
+					ticket.poker = true;
+					saveTicket();
+				});
+				pokerContainer.append(resume);
+			}
+		} else {
+			pokerContainer.append($('<div/>').text(tr('Log in to deal.')));
 		}
-	} else if (userCtx.name) {
-		var deal = $('<button type="button" name="deal" data-icon="deal"/>').text(tr('Deal'));
-		deal.click(function() {
-			removeCards(function() {
-				ticket.poker = true;
-				ticket.dealer = userCtx.name;
-				saveTicket();
-			});
-		});
-		pokerContainer.append(deal);
-
-		if (ticket.dealer == userCtx.name) {
-			var resume = $('<button type="button" name="resume" data-icon="resume"/>').text(tr('Resume'));
-			resume.click(function() {
-				ticket.poker = true;
-				saveTicket();
-			});
-			pokerContainer.append(resume);
-		}
-	} else {
-		pokerContainer.append($('<div/>').text(tr('Log in to deal.')));
 	}
 
 	if (ticket.history) {

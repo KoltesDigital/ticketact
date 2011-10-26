@@ -161,6 +161,7 @@
 					</div>
 				</div>
 			</form>
+			<% if (configuration.pokerCards) { %>
 			<hr/>
 			<form id="poker">
 				<div class="field">
@@ -168,6 +169,7 @@
 					<div class="value" id="pokerContainer"></div>
 				</div>
 			</form>
+			<% } %>
 			<hr/>
 			<div><%= tr('History:') %></div>
 			<table id="history">
