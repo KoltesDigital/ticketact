@@ -14,7 +14,24 @@ var icons = {
 	'up': 'arrowthick-1-n'
 };
 
-var configuration;
+var configuration = {
+	shortCacheDelay: 60000,
+	longCacheDelay: 300000,
+	pokerCards: [
+		'0',
+		'0.5',
+		'1',
+		'2',
+		'3',
+		'5',
+		'8',
+		'13',
+		'20',
+		'40',
+		'100+',
+		'Don\'t know'
+	]
+};
 
 function editableSelectChange() {
 	var sel = $(this);
@@ -109,7 +126,9 @@ function ui(elem) {
 
 $(function() {
 	$.couch.app(function(app) {
-		configuration = app.ddoc.configuration;
+		if (app.ddoc.configuration) {
+			$.extend(configuration, app.ddoc.configuration);
+		}
 
 		$('#account').evently('account', app);
 		$('#menu').evently('menu', app);

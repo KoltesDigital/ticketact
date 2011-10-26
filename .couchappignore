@@ -1,4 +1,5 @@
 [
 	"bump-version.sh",
-	"README.md"
+	"README.md",
+	"template-*"
 ]
