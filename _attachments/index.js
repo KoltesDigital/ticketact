@@ -30,7 +30,8 @@ var configuration = {
 		'40',
 		'100+',
 		'Don\'t know'
-	]
+	],
+	bugViewETagsIncludeDocs: true
 };
 
 function editableSelectChange() {
