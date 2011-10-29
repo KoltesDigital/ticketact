@@ -68,5 +68,11 @@ function(e, board, tickets) {
 		}
 	}).disableSelection();
 
+	setPage('kanban', [board._id]);
+	startPolling({
+		filter: design + '/kanban',
+		id: board._id
+	});
+
 	ui();
 }
