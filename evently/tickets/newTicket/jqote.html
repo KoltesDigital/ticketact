@@ -26,8 +26,7 @@
 <div><select name="assignee" class="editable">
 <option value=""><%= tr('None') %></option>
 <% for (var i in cache.users) { %>
-<option value="<%= escape(cache.users[i]) %>"<% if (cache.users[i] == userCtx.name) {
-%> selected="selected"<% } %>><%= escape(cache.users[i]) %></option>
+<option value="<%= escape(cache.users[i]) %>"><%= escape(cache.users[i]) %></option>
 <% } %>
 </select></div>
 <div><button type="submit" data-icon="check"><%= tr('Create') %></button></div>
