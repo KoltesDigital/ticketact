@@ -500,35 +500,37 @@ $(function() {
 			}
 		};
 		
-		refreshShortCache(refreshLongCache(function() {
-			setInterval(refreshShortCache, configuration.shortCacheDelay);
-			setInterval(refreshLongCache, configuration.longCacheDelay);
-
-			var polling = {};
-
-			startPolling = function(options) {
-				if (!equal(options, polling.options)) {
-					polling.options = options;
-					stopPolling();
-					var opt = {};
-					$.extend(opt, options);
-					polling.promise = db.changes(null, opt);
-					polling.promise.onChange(reloadPage);
-				}
-			};
-
-			stopPolling = function() {
-				if (polling.promise) {
-					polling.promise.stop();
-					polling = {};
-				}
-			};
-
-			$.pathbinder.onChange(stopPolling);
-			$.pathbinder.begin('home');
-			
-			$('#loading').remove();
-			$('#content').show();
-		}));
+		refreshShortCache(function() {
+			refreshLongCache(function() {
+				setInterval(refreshShortCache, configuration.shortCacheDelay);
+				setInterval(refreshLongCache, configuration.longCacheDelay);
+	
+				var polling = {};
+	
+				startPolling = function(options) {
+					if (!equal(options, polling.options)) {
+						polling.options = options;
+						stopPolling();
+						var opt = {};
+						$.extend(opt, options);
+						polling.promise = db.changes(null, opt);
+						polling.promise.onChange(reloadPage);
+					}
+				};
+	
+				stopPolling = function() {
+					if (polling.promise) {
+						polling.promise.stop();
+						polling = {};
+					}
+				};
+	
+				$.pathbinder.onChange(stopPolling);
+				$.pathbinder.begin('home');
+				
+				$('#loading').remove();
+				$('#content').show();
+			});
+		});
 	});
 });
