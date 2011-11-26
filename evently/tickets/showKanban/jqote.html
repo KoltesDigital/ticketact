@@ -1,6 +1,9 @@
 <% var tr = this.tr; %>
 <h1><%= tr('Kanban') %></h1>
 <div>
+<div>
+<a class="button" data-icon="edit" href="#board/<%= escape(this.board._id) %>"><%= tr('Edit') %></a>
+</div>
 <table id="kanban">
 <thead>
 <tr>
@@ -11,6 +14,5 @@
 </tr>
 </tbody>
 </table>
-<div><%= tr('Other tickets:') %></div>
 <div id="otherTickets"></div>
 </div>

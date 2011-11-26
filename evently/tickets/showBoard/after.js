@@ -9,6 +9,21 @@ function(e, board) {
 		});
 	}
 
+	elem.find('#board').edit(function() {
+		var form = $(this);
+
+		form.find('[name=name]').val(board.name);
+		form.find('[name=description]').val(board.description);
+	}).submit(function() {
+		var form = $(this);
+
+		board.name = form.find('[name=name]').val();
+		board.description = form.find('[name=description]').val();
+		
+		saveBoard();
+		return false;
+	});
+
 	var stages = elem.find('#stages');
 
 	if (board.stages) {

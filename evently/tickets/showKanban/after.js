@@ -36,11 +36,11 @@ function(e, board, tickets) {
 	var stages = {};
 
 	$.each(board.stages, function(i, stage) {
-		var th = $('<th></th>');
+		var th = $('<th/>');
 		th.text(stage);
 		thead.append(th);
 
-		var td = $('<td></td>');
+		var td = $('<td/>');
 		td.data('stage', stage);
 		tbody.append(td);
 

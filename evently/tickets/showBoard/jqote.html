@@ -1,17 +1,37 @@
 <% var tr = this.tr; %>
 <h1><%= tr('Board') %></h1>
 <div>
-<div><%= tr('Name:') %></div>
-<div><%= escape(this.board.name) %></div>
-<div><%= tr('Description:') %></div>
-<div><%= escape(this.board.description) %></div>
-<hr/>
-<div><%= tr('Stages:') %></div>
-<div id="stages">
-</div>
-<form id="addStage">
-<input name="name"/>&nbsp;<button type="submit" data-icon="add"></button>
-</form>
-<hr/>
-<a href="#kanban/<%= this.board._id %>"><%= tr('Kanban view') %></a>
+	<div class="table">
+		<div>
+			<div style="width: 50%;">
+				<form id="board" class="editable">
+					<dl class="form">
+						<dt>
+							<label for="name"><%= tr('Name') %></label>
+						</dt>
+						<dd>
+							<span class="text"><%= escape(this.board.name) %></span>
+							<input id="name" name="name" class="wide important editor" />
+						</dd>
+						<dt>
+							<label for="description"><%= tr('Description') %></label>
+						</dt>
+						<dd>
+							<span class="text"><%= escape(this.board.description) %></span>
+							<textarea id="description" name="description" class="large editor"></textarea>
+						</dd>
+					</dl>
+				</form>
+			</div>
+			<div class="leftSpace">
+				<h2><%= tr('Stages') %></h2>
+				<div id="stages"></div>
+				<form id="addStage">
+					<input name="name" />&nbsp;
+					<button type="submit" data-icon="add"></button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<a class="button" data-icon="kanban" href="#kanban/<%= this.board._id %>"><%= tr('Kanban view') %></a>
 </div>

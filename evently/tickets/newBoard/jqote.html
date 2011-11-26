@@ -1,11 +1,33 @@
 <% var tr = this.tr; %>
 <h1><%= tr('New board') %></h1>
 <div>
-<form id="newBoard">
-<div><%= tr('Name:') %></div>
-<div><input name="name"/></div>
-<div><%= tr('Description:') %></div>
-<div><textarea name="description"></textarea></div>
-<div><button type="submit" data-icon="create"><%= tr('Create') %></button></div>
-</form>
+	<form id="newBoard">
+		<div class="table">
+			<div>
+				<div style="width: 50%;">
+					<dl class="form">
+						<dt>
+							<label for="name"><%= tr('Name') %></label>
+						</dt>
+						<dd>
+							<input id="name" name="name" class="wide important" />
+						</dd>
+						<dt>
+							<label for="description"><%= tr('Description') %></label>
+						</dt>
+						<dd>
+							<textarea id="description" name="description" class="large"></textarea>
+						</dd>
+					</dl>
+					<div>
+						<button type="submit" data-icon="check"><%= tr('Create') %></button>
+					</div>
+				</div>
+				<div class="leftSpace">
+					<h2><%= tr('Existing boards') %></h2>
+					<div id="boards"></div>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>

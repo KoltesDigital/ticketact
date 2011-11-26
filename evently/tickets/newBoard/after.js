@@ -1,6 +1,16 @@
 function(e) {
 	var elem = $(this);
 
+	db.view(design + '/boards', {
+		success: function(resp) {
+			var boards = elem.find('#boards');
+
+			$.each(resp.rows, function(i, row) {
+				boards.append($('<div/>').text(row.value.name));
+			});
+		}
+	});
+
 	elem.find('#newBoard').submit(function() {
 		var form = $(this);
 

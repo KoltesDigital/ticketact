@@ -377,6 +377,10 @@ function refreshShortCache(callback) {
 	});
 }
 
+$.fn.edit = function(handler) {
+	return $(this).bind('edit', handler);
+};
+
 function editableSelectChange() {
 	var sel = $(this);
 	var last = sel.children(':last');
@@ -401,7 +405,7 @@ function ui(elem, optTr) {
 	elem.find('form.editable').each(function() {
 		var form = $(this);
 
-		var div = $('<div/>');
+		var div = $('<div class="buttons"/>');
 		form.append(div);
 
 		var edit = $('<button/>');
@@ -431,7 +435,7 @@ function ui(elem, optTr) {
 
 			form.find('.text,.editor').toggle();
 
-			form.trigger('toggled');
+			form.trigger('edit');
 
 			form.find(':input:first').focus();
 		});
