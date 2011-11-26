@@ -1,5 +1,6 @@
 [
 	"bump-version.sh",
 	"README.md",
-	"template-*"
+	"template-*",
+	"_attachments/images/*.svg"
 ]

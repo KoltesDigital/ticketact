@@ -1,0 +1,416 @@
+a:not(.button) {
+	text-decoration: none;
+	color: #3a7e15;
+	font-weight: bold;
+}
+
+a:hover:not(.button) {
+	color: #50ae1d;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 62.5%;
+	font-family: Helvetica, Arial;
+	background-color: #e67f28;
+	background-image: url('images/background.png');
+}
+
+button {
+	min-width: 29px;
+	min-height: 29px;
+}
+
+.important {
+	font-size: 1.2em;
+}
+
+.smallest {
+	width: 1px;
+}
+
+.wide {
+	width: 100%;
+}
+
+input.medium {
+	width: 50%;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+tr.alt {
+	background-color: #F0F0F0;
+}
+
+td, th {
+	border: 1px solid lightgray;
+}
+
+th {
+	padding: 5px;
+}
+
+textarea.large {
+	width: 100%;
+	height: 200px;
+}
+
+textarea.medium{
+	width: 100%;
+	height: 100px;
+}
+
+textarea.small {
+	width: 100%;
+	height: 50px;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;  
+	display: table;
+} 
+
+.table > * {
+	display: table-row;
+}
+
+.table.list > * {
+	margin-bottom: 10px;
+}
+
+.table > * > * {
+	display: table-cell;
+}
+
+.table > * > *.leftSpace {
+	padding-left: 20px;
+}
+
+.table > * > *.rightSpace {
+	padding-right: 20px;
+}
+
+#footer {
+	margin: 10px;
+	font-size: 1.4em;
+	text-align: center;
+}
+
+#footer > * {
+	display: inline-block;
+	border-radius: 10px;
+	padding: 5px 20px 5px 20px;
+}
+
+#header {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 110px;
+	background: url('images/header.png') repeat-x;
+}
+
+#loading {
+	margin: 10px;
+	padding: 10px;
+	font-size: 1.4em;
+	background-color: white;
+}
+
+#logo {
+	position: absolute;
+	left: 40px;
+	top: 30px;
+	width: 160px;
+	height: 80px;
+	background: url('images/logo.png') no-repeat;
+}
+
+#logo > h1 {
+	position: absolute;
+	left: 80px;
+	top: 20px;
+	margin: 0;
+	font-size: 3em;
+	color: white;
+	font-weight: bold;
+}
+
+#main {
+	padding: 20px;
+	margin: 10px;
+	background-color: white;
+	font-size: 1.4em;
+}
+
+#main > h1 {
+	padding: 0px;
+	margin: 0 0 20px 20px;
+}
+
+#main > div {
+	padding: 0px;
+	margin: 0px;
+}
+
+#main form .doesnt {
+	display: none;
+}
+
+#main form.editable .editor {
+	display: none;
+}
+
+#main form button.save, #main form button.cancel {
+	display: none;
+}
+
+#main .field {
+	overflow: auto;
+	width: 100%;
+	margin-bottom: 4px;
+}
+
+#main .field > .name {
+	float: left;
+	width: 90px;
+}
+
+#main .field > .value {
+	margin-left: 100px;
+	padding-right: 10px;
+}
+
+#main .none {
+	color: lightgray;
+}
+
+#main .twoColumn {
+	overflow: auto;
+	width: 100%;
+}
+
+#main .twoColumn > .left {
+	float: left;
+	width: 50%;
+	padding: 0;
+}
+
+#main .twoColumn > .left > * {
+	margin-right: 5px;
+}
+
+#main .twoColumn > .right {
+	float: right;
+	width: 50%;
+	padding: 0;
+}
+
+#main .twoColumn > .right > * {
+	margin-left: 5px;
+}
+
+#main .columns {
+	overflow: auto;
+	width: 100%;
+}
+
+#main .columns > * {
+	float: left;
+	padding-right: 20px;
+}
+
+#main .columns > .half {
+	width: 48%;
+}
+
+#main .columns > .third {
+	width: 31%;
+}
+
+#main .columns > .fourth {
+	width: 23%;
+}
+
+#main dl.form {
+}
+
+#main dl.form > dt {
+	margin: 0;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#main dl.form > dd {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 15px;
+}
+
+#main dl.fields {
+}
+
+#main dl.fields > dt {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#main dl.fields > dd {
+	margin-bottom: 15px;
+}
+
+#main .floatRight {
+	display: block;
+	float: right;
+	margin-left: 10px;
+}
+
+#main .clear {
+	clear: both;
+}
+
+#main .smallKanban > tbody > tr > td > div {
+	margin: 4px;
+	padding: 2px;
+} 
+
+#main .boardContainer {
+	overflow: auto;
+}
+
+#main .boardContainer > a {
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 200px;
+	height: 160px;
+	margin: 20px 20px 0 0;
+	padding: 5px;
+	background: #f4fbed;
+}
+
+#main .boardContainer > a > h2 {
+	margin: 5px;
+}
+
+#main .boardContainer > a > a.edit {
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
+}
+
+#menu {
+	position: absolute;
+	left: 300px;
+	top: 20px;
+	margin: 0;
+}
+
+#menu > li {
+	float: left;
+	list-style: none;
+	text-indent: 0;
+	padding: 0;
+	margin: 0 20px 0 0;
+}
+
+#menu > li > a {
+	position: relative;
+	display: block;
+	width: 100px;
+	height: 90px;
+	padding: 0;
+	margin: 0;
+	border-radius: 20px 20px 0 0;
+}
+
+#menu > li > a:hover {
+	background-image: url('images/button.png');
+}
+
+#menu > li > a > .icon {
+	position: absolute;
+	left: 20px;
+	top: 0px;
+	width: 60px;
+	height: 60px;
+	background-repeat: no-repeat;
+}
+
+#menu > li > a > .text {
+	position: absolute;
+	top: 60px;
+	width: 100px;
+	color: white;
+	font-size: 1.4em;
+	text-align: center;
+}
+
+#menu > li > a.home > .icon {
+	background-image: url('images/home.png');
+}
+
+#menu > li > a.newTicket > .icon {
+	background-image: url('images/newTicket.png');
+}
+
+#menu > li > a.boards > .icon {
+	background-image: url('images/boards.png');
+}
+
+#menu > li > a.search > .icon {
+	background-image: url('images/search.png');
+}
+
+#menu > li > a.advanced > .icon {
+	background-image: url('images/advanced.png');
+}
+
+
+
+h1.ui-widget-header {
+	font-size: 1.6em;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px;
+}
+
+div.ui-widget-content {
+	font-size: 1.2em;
+}
+
+.rightAlign {
+	text-align: right;
+}
+
+#account {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+#kanban {
+}
+
+#kanban td {
+	width: 200px;
+	padding: 0;
+}
+
+#kanban td > div {
+	margin: 10px;
+}
+
+#kanban td > div > .ui-widget-header {
+	padding: 4px;
+}
+
+#kanban td > div > .ui-widget-content {
+	padding: 10px;
+}

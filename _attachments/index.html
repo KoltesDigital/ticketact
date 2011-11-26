@@ -3,23 +3,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>TicketAct</title>
-<link rel="stylesheet" href="ui/jquery-ui-1.8.16.custom.css" type="text/css"></link>
-<link rel="stylesheet" href="common.css" type="text/css"></link>
+<link rel="shortcut icon" href="images/favicon.ico" />
+<link rel="stylesheet" href="jquery-ui-1.8.16.custom.css" type="text/css"></link>
+<link rel="stylesheet" href="index.css" type="text/css"></link>
 <script src="vendor/couchapp/loader.js"></script>
 <script src="vendor/bloutiouf/jquery.tr.min.js"></script>
 <script src="vendor/bloutiouf/jquery.couch.tr.min.js"></script>
-<script src="common.js"></script>
 <script src="index.js"></script>
-<script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
 </head>
-<body class="ui-widget-shadow">
-<div id="menu" class="ui-widget"></div>
-<div id="main" class="ui-widget">
-<noscript>
-<div class="frame error">You must enable JavaScript to use this application.</div>
-</noscript>
-</div>
-<div id="account" class="ui-widget"></div>
-<div id="themeswitcher"></div>
+<body>
+	<div id="content" style="display: none;">
+		<div id="header">
+			<div id="logo">
+				<h1>TicketAct</h1>
+			</div>
+			<ul id="menu"></ul>
+			<div id="account"></div>
+		</div>
+		<div id="main"></div>
+		<div id="footer">
+			<a class="ui-state-highlight ui-corner-all" href="https://github.com/Bloutiouf/ticketact" target="_blank">Powered by TicketAct!</a>
+		</div>
+	</div>
+	<div id="loading">TicketAct is loading, please wait...</div>
+	<noscript>
+		<div>You must enable JavaScript to use this application.</div>
+	</noscript>
 </body>
 </html>

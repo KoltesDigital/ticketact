@@ -1,15 +1,21 @@
 <% var tr = this.tr; %>
-<h1><%= tr('Menu') %></h1>
-<div>
-<ul class="links">
-<li><a href="#home"><%= tr('Home') %></a></li>
-<li><a href="#newTicket"><%= tr('New ticket') %></a></li>
-<li><a href="#ticketSearch"><%= tr('Ticket search') %></a></li>
-<li><a href="#boards"><%= tr('Boards') %></a></li>
-<li><a href="#components"><%= tr('Components') %></a></li>
-<li><a href="#tags"><%= tr('Tags') %></a></li>
-<li><a href="#types"><%= tr('Types') %></a></li>
-<li><a href="#users"><%= tr('Users') %></a></li>
-<li><a href="#versions"><%= tr('Versions') %></a></li>
-</ul>
-</div>
+<li><a class="home" href="#home" title="<%= tr('Home') %>">
+	<div class="icon">&nbsp;</div>
+	<div class="text"><%= tr('Home') %></div>
+</a></li>
+<li><a class="newTicket" href="#newTicket" title="<%= tr('New ticket') %>">
+	<div class="icon">&nbsp;</div>
+	<div class="text"><%= tr('New ticket') %></div>
+</a></li>
+<li><a class="boards" href="#boards" title="<%= tr('Boards') %>">
+	<div class="icon">&nbsp;</div>
+	<div class="text"><%= tr('Boards') %></div>
+</a></li>
+<li><a class="search" href="#search" title="<%= tr('Search') %>">
+	<div class="icon">&nbsp;</div>
+	<div class="text"><%= tr('Search') %></div>
+</a></li>
+<li><a class="advanced" href="#advanced" title="<%= tr('Advanced') %>">
+	<div class="icon">&nbsp;</div>
+	<div class="text"><%= tr('Advanced') %></div>
+</a></li>
