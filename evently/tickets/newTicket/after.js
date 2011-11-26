@@ -2,6 +2,48 @@ function(e) {
 	var elem = $(this);
 	var tr = elem.tr();
 
+	function showKanban(board, tickets) {
+		var elem = $('#overview');
+		elem.empty();
+
+		if (board) {
+			elem.append(tr('Selected board overview:'));
+			
+			var table = $('<table class="smallKanban"/>');
+			elem.append(table);
+	
+			var thead = $('<tr/>');
+			table.append($('<thead/>').append(thead));
+	
+			var tbody = $('<tr/>');
+			table.append($('<tbody/>').append(tbody));
+			
+			var stages = {};
+	
+			$.each(board.stages, function(i, stage) {
+				var th = $('<th/>');
+				th.text(stage);
+				thead.append(th);
+	
+				var td = $('<td/>');
+				td.data('stage', stage);
+				tbody.append(td);
+	
+				stages[stage] = td;
+			});
+	
+			$.each(tickets, function(i, ticket) {
+				var div = $('<div class="ui-state-highlight"/>').text(ticket.name);
+	
+				if (stages[ticket.stage]) {
+					stages[ticket.stage].append(div);
+				}
+			});
+		} else {
+			elem.append(tr('Selected board does not exist.'));
+		}
+	}
+	
 	var form = elem.find('#newTicket');
 
 	form.find('[name=type]').change(function() {
@@ -26,16 +68,74 @@ function(e) {
 			stageSelect.attr('name', 'stage');
 		}
 
-		var board = boardSelect.val();
-		if (cache.boards[board]) {
-			$.each(cache.boards[board].stages, function(i, stage) {
-				stageSelect.append($('<option/>').attr('value', stage).text(stage));
-			});
-			stageSelect.append($('<option/>').text(tr('...')));
-		} else {
+		function noBoard() {
+			showKanban();
 			stageSelect.change();
 		}
-	}).change();
+		
+		var boardId = boardSelect.val();
+		
+		if (boardId) {
+			db.openDoc(boardId, {
+				success: function(board) {
+					updateCache('boards', boardId, board);
+					
+					$.each(board.stages, function(i, stage) {
+						stageSelect.append($('<option/>').attr('value', stage).text(stage));
+					});
+					stageSelect.append($('<option/>').text(tr('...'))).change();
+					
+					if (configuration.bugViewETagsIncludeDocs) {
+						db.view(design + '/ticketsInBoards', {
+							startkey: [boardId],
+							endkey: [boardId, {}],
+							reduce: false,
+							success: function(resp) {
+								var keys = [];
+	
+								$.each(resp.rows, function(i, row) {
+									keys.push(row.id);
+								});
+	
+								db.allDocs({
+									keys: keys,
+									include_docs: true,
+									success: function(resp) {
+										var tickets = [];
+										
+										$.each(resp.rows, function(i, row) {
+											tickets.push(row.doc);
+										});
+										
+										showKanban(board, tickets);
+									}
+								});
+							}
+						});
+					} else {
+						db.view(design + '/ticketsInBoards', {
+							startkey: [boardId],
+							endkey: [boardId, {}],
+							reduce: false,
+							include_docs: true,
+							success: function(resp) {
+								var tickets = [];
+	
+								$.each(resp.rows, function(i, row) {
+									tickets.push(row.doc);
+								});
+								
+								showKanban(board, tickets);
+							}
+						});
+					}
+				},
+				error: noBoard
+			});
+		} else {
+			noBoard();
+		}
+	});
 
 	form.submit(function() {
 		var name = form.find('[name=name]').val();
@@ -69,7 +169,7 @@ function(e) {
 			if (assignee) {
 				ticket.assignee = assignee;
 				historyEntry.user = assignee;
-				updateUserCache(assignee);
+				addUsersToCache(assignee);
 			}
 
 			ticket.history = [historyEntry];

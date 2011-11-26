@@ -1,34 +1,73 @@
 <% var tr = this.tr; %>
 <h1><%= tr('New ticket') %></h1>
 <div>
-<form id="newTicket">
-<div><%= tr('Name:') %></div>
-<div><input name="name"/></div>
-<div><%= tr('Description:') %></div>
-<div><textarea name="description"></textarea></div>
-<div><%= tr('Type:') %></div>
-<div><select name="type" class="editable">
-<option value=""><%= tr('None') %></option>
-<% for (var i in cache.types) { %>
-<option value="<%= escape(cache.types[i]._id) %>"><%= escape(cache.types[i].name) %></option>
-<% } %>
-</select></div>
-<div><%= tr('Board:') %></div>
-<div><select name="board" class="editable">
-<% for (var i in cache.boards) { %>
-<option value="<%= escape(cache.boards[i]._id) %>"><%= escape(cache.boards[i].name) %></option>
-<% } %>
-</select></div>
-<div><%= tr('Stage:') %></div>
-<div><select name="stage" class="">
-</select></div>
-<div><%= tr('Assignee:') %></div>
-<div><select name="assignee" class="editable">
-<option value=""><%= tr('None') %></option>
-<% for (var i in cache.users) { %>
-<option value="<%= escape(cache.users[i]) %>"><%= escape(cache.users[i]) %></option>
-<% } %>
-</select></div>
-<div><button type="submit" data-icon="check"><%= tr('Create') %></button></div>
-</form>
+	<form id="newTicket">
+		<div class="table">
+			<div>
+				<div style="width: 50%;">
+					<dl class="form">
+						<dt>
+							<label for="name"><%= tr('Name') %></label>
+						</dt>
+						<dd>
+							<input id="name" name="name" class="wide important" />
+						</dd>
+						<dt>
+							<label for="description"><%= tr('Description') %></label>
+						</dt>
+						<dd>
+							<textarea id="description" name="description" class="large"></textarea>
+						</dd>
+					</dl>
+					<div>
+						<button type="submit" data-icon="check"><%= tr('Create') %></button>
+					</div>
+				</div>
+				<div class="leftSpace rightSpace">
+					<dl class="form">
+						<dt>
+							<label for="type"><%= tr('Type') %></label>
+						</dt>
+						<dd>
+							<select id="type" name="type" class="editable">
+								<option value=""><%= tr('None') %></option>
+								<% for (var i in cache.types) { %>
+									<option value="<%= escape(cache.types[i]._id) %>"><%= escape(cache.types[i].name) %></option>
+								<% } %>
+							</select>
+						</dd>
+						<dt>
+							<label for="board"><%= tr('Board') %></label>
+						</dt>
+						<dd>
+							<select id="board" name="board" class="editable">
+							<% for (var i in cache.boards) { %>
+								<option value="<%= escape(cache.boards[i]._id) %>"><%= escape(cache.boards[i].name) %></option>
+							<% } %>
+							</select>
+						</dd>
+						<dt>
+							<label for="stage"><%= tr('Stage') %></label>
+						</dt>
+						<dd>
+							<select id="stage" name="stage" class="">
+							</select>
+						</dd>
+						<dt>
+							<label for="assignee"><%= tr('Assignee') %></label>
+						</dt>
+						<dd>
+							<select id="assignee" name="assignee" class="editable">
+								<option value=""><%= tr('None') %></option>
+							<% for (var i in cache.users) { %>
+								<option value="<%= escape(cache.users[i]) %>"><%= escape(cache.users[i]) %></option>
+							<% } %>
+							</select>
+						</dd>
+					</dl>
+				</div>
+				<div id="overview"></div>
+			</div>
+		</div>
+	</form>
 </div>
