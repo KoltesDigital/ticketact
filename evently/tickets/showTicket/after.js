@@ -260,7 +260,7 @@ function(e, ticket, comments, cards) {
 				pokerContainer.append($('<div/>').text(tr('&user has played &card on &date.', {
 					user: i,
 					card: card,
-					date: formatDate(cards[i].date)
+					date: dateFormat(cards[i].date)
 				})));
 			}
 			var countResults = [];
@@ -346,7 +346,7 @@ function(e, ticket, comments, cards) {
 		var historyBody = elem.find('#history > tbody');
 		$.each(ticket.history, function(i, entry) {
 			var tr = $('<tr/>');
-			tr.append($('<td/>').text(formatDate(entry.date)));
+			tr.append($('<td/>').text(dateFormat(entry.date)));
 			if (cache.boards[entry.board]) {
 				tr.append($('<td/>').append($('<a/>').attr('href', '#board/' + entry.board).text(cache.boards[entry.board].name)));
 			} else {

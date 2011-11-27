@@ -39,10 +39,3 @@ License
 -------
 
 TicketAct is an open-source software licensed under the [MIT License](http://www.opensource.org/licenses/MIT).
-
-We want to thank the following projects used on TicketAct:
-
-* [CouchDB](http://couchdb.apache.org/)
-* [CouchApp](http://couchapp.org)
-* [jQuery](http://jquery.org/)
-* [jQuery.tr](https://github.com/Bloutiouf/jquery.tr)

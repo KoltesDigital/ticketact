@@ -195,10 +195,6 @@ function caseInsensitiveSortOrder(a, b) {
 	}
 }
 
-function formatDate(timestamp) {
-	return new Date(timestamp).toLocaleString();
-}
-
 function equal(a, b) {
 	if (typeof(a) != typeof(b)) {
 		return false;

@@ -149,6 +149,19 @@ textarea.small {
 	font-size: 1.4em;
 }
 
+#main .comment {
+	margin-top: 16px;
+}
+
+#main .comment > .body {
+	margin-top: 2px;
+	margin-left: 10px;
+}
+
+#main .comment > .data {
+	font-style: italic;
+}
+
 #main dl > .empty {
 	display: none;
 }
@@ -180,6 +193,10 @@ textarea.small {
 
 #main dl.fields > dd {
 	margin: 0 0 10px 200px;
+}
+
+#main form {
+	margin-top: 10px;
 }
 
 #main form.editable .editor {

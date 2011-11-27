@@ -24,9 +24,9 @@
 				<h2><%= tr('Comments') %></h2>
 				<div id="comments">
 					<% for (var i in this.comments) { var comment = this.comments[i]; %>
-					<div>
-						<div><%= tr('&date by &user', { date : formatDate(comment.date), user : escape(comment.user) || tr('Anonymous') }) %></div>
-						<div><%= nl2br(escape(comment.text)) %></div>
+					<div class="comment">
+						<div class="data"><%= tr('&user - &date', { date : dateFormat(comment.date), user : escape(comment.user) || tr('Anonymous') }) %></div>
+						<div class="body"><%= nl2br(escape(comment.text)) %></div>
 					</div>
 					<% } %>
 				</div>
