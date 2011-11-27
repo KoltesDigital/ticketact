@@ -1,192 +1,134 @@
 <% var tr = this.tr; %>
 <h1><%= escape(this.ticket.name) %></h1>
 <div>
-	<div class="twoColumn">
-		<div class="left">
-			<form id="information" class="fields">
-				<div class="field">
-					<div class="name"><%= tr('Name:') %></div>
-					<div class="value editable">
-						<span class="text"><%= escape(this.ticket.name) %></span>
-						<input class="editor wide" type="text" name="name" />
+	<div class="table">
+		<div>
+			<div style="width: 50%;">
+				<form id="information" class="editable">
+					<dl class="form">
+						<dt>
+							<label for="name"><%= tr('Name') %></label>
+						</dt>
+						<dd>
+							<span class="text"><%= escape(this.ticket.name) %></span> <input class="editor wide" type="text" name="name" id="name" />
+						</dd>
+						<dt><%= tr('Description') %></dt>
+						<dd>
+							<span class="text"><%= nl2br(escape(this.ticket.description)) %></span>
+							<textarea class="editor large" name="description"></textarea>
+						</dd>
+					</dl>
+				</form>
+				<h2><%= tr('Data') %></h2>
+				<h2><%= tr('Attachments') %></h2>
+				<h2><%= tr('Comments') %></h2>
+				<div id="comments">
+					<% for (var i in this.comments) { var comment = this.comments[i]; %>
+					<div>
+						<div><%= tr('&date by &user', { date : formatDate(comment.date), user : escape(comment.user) || tr('Anonymous') }) %></div>
+						<div><%= nl2br(escape(comment.text)) %></div>
 					</div>
+					<% } %>
 				</div>
-				<div class="field">
-					<div class="name"><%= tr('Description:') %></div>
-					<div class="value editable">
-						<span class="text"><%= nl2br(escape(this.ticket.description)) %></span>
-						<textarea class="editor large" name="description"></textarea>
+				<form id="addComment">
+					<div>
+						<textarea class="medium" name="text"></textarea>
 					</div>
-				</div>
-			</form>
-			<hr/>
-			<div><%= tr('Data:') %></div>
-			<hr/>
-			<div><%= tr('Attachments:') %></div>
-			<hr/>
-			<div><%= tr('Comments:') %></div>
-			<div id="comments">
-				<% for (var i in this.comments) { var comment = this.comments[i]; %>
-				<div>
-					<div><%= tr('&date by &user', { date : formatDate(comment.date), user : escape(comment.user) || tr('Anonymous') }) %></div>
-					<div><%= nl2br(escape(comment.text)) %></div>
-				</div>
-				<% } %>
+					<button type="submit" data-icon="add"><%= tr('Add') %></button>
+				</form>
 			</div>
-			<div><%= tr('Add comment:') %></div>
-			<form id="addComment">
-				<div>
-					<textarea class="medium" name="text"></textarea>
-				</div>
-				<button type="submit" data-icon="add"><%= tr('Add') %></button>
-			</form>
-		</div>
-		<div class="right">
-			<form id="details" class="fields">
-				<div class="field">
-					<div class="name"><%= tr('Type:') %></div>
-					<div class="value">
-						<% if (this.ticket.type != null) { %>
-						<div class="text"><% if (cache.types[this.ticket.type]) { %><a href="#type/<%= escape(this.ticket.type) %>"><%= escape(cache.types[this.ticket.type].name) %></a><% } else { %><%= escape(this.ticket.type) %><% } %></div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<select class="editor editable" name="type"></select>
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Component:') %></div>
-					<div class="value">
-						<% if (this.ticket.component != null) { %>
-						<div class="text"><% if (cache.components[this.ticket.component]) { %><a href="#component/<%= escape(this.ticket.component) %>"><%= escape(cache.components[this.ticket.component].name) %></a><% } else { %><%= escape(this.ticket.component) %><% } %></div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<select class="editor editable" name="component"></select>
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Tags:') %></div>
-					<div class="value">
-						<% if (this.ticket.tags != null && this.ticket.tags.length > 0) { %>
-						<div class="text">						
-							<% for (var i in this.ticket.tags) {
-								var tag = this.ticket.tags[i];
-							%><a href="#tag/<%= escape(tag) %>"><%= escape(tag) %></a> <%
-							} %>
-						</div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<input type="text" class="editor" name="tags" />
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Concerned versions:') %></div>
-					<div class="value">
-						<% if (this.ticket.concernedVersions != null && this.ticket.concernedVersions.length > 0) { %>
-						<div class="text">						
-						<% for (var i in this.ticket.concernedVersions) {
-							var version = this.ticket.concernedVersions[i];
-							%><a href="#version/<%= escape(version) %>"><%= escape(version) %></a> <%
-							} %>
-						</div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<input type="text" class="editor" name="concernedVersions" />
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Target versions:') %></div>
-					<div class="value">
-						<% if (this.ticket.targetVersions != null && this.ticket.targetVersions.length > 0) { %>
-						<div class="text">						
-						<% for (var i in this.ticket.targetVersions) {
-							var version = this.ticket.targetVersions[i];
-							%><a href="#version/<%= escape(version) %>"><%= escape(version) %></a> <%
-							} %>
-						</div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<input type="text" class="editor" name="targetVersions" />
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Board:') %></div>
-					<div class="value">
-						<div class="text"><% if (cache.boards[this.ticket.board]) { %><a href="#board/<%= escape(this.ticket.board) %>"><%= escape(cache.boards[this.ticket.board].name) %></a><% } else { %><%= escape(this.ticket.board) %><% } %></div>
-						<select class="editor editable" name="board"></select>
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Stage:') %></div>
-					<div class="value editable">
-						<div class="text"><%= escape(this.ticket.stage) %></div>
-						<select class="editor editable" name="stage"></select>
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Assignee:') %></div>
-					<div class="value editable">
-						<% if (this.ticket.assignee != null) { %>
-						<div class="text"><a href="#user/<%= escape(this.ticket.assignee) %>"><%= escape(this.ticket.assignee) %></a></div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<select class="editor editable" name="assignee"></select>
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Estimated duration:') %></div>
-					<div class="value editable">
-						<% if (this.ticket.estimation != null) { %>
-						<div class="text"><%= escape(this.ticket.estimation) %></div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<input type="text" class="editor" name="estimation" />
-					</div>
-				</div>
-				<div class="field">
-					<div class="name"><%= tr('Effective duration:') %></div>
-					<div class="value editable">
-						<% if (this.ticket.duration != null) { %>
-						<div class="text"><%= escape(this.ticket.duration) %></div>
-						<% } else { %>
-						<div class="text none"><%= tr('None') %></div>
-						<% } %>
-						<input type="text" class="editor" name="duration" />
-					</div>
-				</div>
-			</form>
-			<% if (configuration.pokerCards) { %>
-			<hr/>
-			<form id="poker">
-				<div class="field">
-					<div class="name"><%= tr('Poker:') %></div>
-					<div class="value" id="pokerContainer"></div>
-				</div>
-			</form>
-			<% } %>
-			<hr/>
-			<div><%= tr('History:') %></div>
-			<table id="history">
-				<thead>
-					<tr>
-						<th><%= tr('Date') %></th>
-						<th><%= tr('Board') %></th>
-						<th><%= tr('Stage') %></th>
-						<th><%= tr('User') %></th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+			<div class="leftSpace">
+				<form id="details" class="editable">
+					<dl class="fields">
+						<dt<%= this.ticket.type ? '' : ' class="empty"' %>><%= tr('Type:') %></dt>
+						<dd<%= this.ticket.type ? '' : ' class="empty"' %>>
+							<div class="text">
+								<% if (cache.types[this.ticket.type]) { %><a href="#type/<%= escape(this.ticket.type) %>"><%= escape(cache.types[this.ticket.type].name) %></a><% } else { %><%= escape(this.ticket.type) %><% } %>
+							</div>
+							<select class="editor editable" name="type"></select>
+						</dd>
+						<dt<%= this.ticket.component ? '' : ' class="empty"' %>><%= tr('Component:') %></dt>
+						<dd<%= this.ticket.component ? '' : ' class="empty"' %>>
+							<div class="text">
+								<% if (cache.components[this.ticket.component]) { %><a href="#component/<%= escape(this.ticket.component) %>"><%= escape(cache.components[this.ticket.component].name) %></a><% } else { %><%= escape(this.ticket.component) %><% } %>
+							</div>
+							<select class="editor editable" name="component"></select>
+						</dd>
+						<dt<%= (this.ticket.tags && this.ticket.tags.length > 0) ? '' : ' class="empty"' %>><%= tr('Tags:') %></dt>
+						<dd<%= (this.ticket.tags && this.ticket.tags.length > 0) ? '' : ' class="empty"' %>>
+							<div class="text">
+								<% for (var i in this.ticket.tags) { var tag = this.ticket.tags[i]; %><a href="#tag/<%= escape(tag) %>"><%= escape(tag) %></a> <% } %>
+							</div>
+							<input type="text" class="editor" name="tags" />
+						</dd>
+						<dt<%= (this.ticket.concernedVersions && this.ticket.concernedVersions.length > 0) ? '' : ' class="empty"' %>><%= tr('Concerned versions:') %></dt>
+						<dd<%= (this.ticket.concernedVersions && this.ticket.concernedVersions.length > 0) ? '' : ' class="empty"' %>>
+							<div class="text">
+								<% for (var i in this.ticket.concernedVersions) { var version = this.ticket.concernedVersions[i]; %><a href="#version/<%= escape(version) %>"><%= escape(version) %></a> <% } %>
+							</div>
+							<input type="text" class="editor" name="concernedVersions" />
+						</dd>
+						<dt<%= (this.ticket.targetVersions && this.ticket.targetVersions.length > 0) ? '' : ' class="empty"' %>><%= tr('Target versions:') %></dt>
+						<dd<%= (this.ticket.targetVersions && this.ticket.targetVersions.length > 0) ? '' : ' class="empty"' %>>
+							<div class="text">
+								<% for (var i in this.ticket.targetVersions) { var version = this.ticket.targetVersions[i]; %><a href="#version/<%= escape(version) %>"><%= escape(version) %></a> <% } %>
+							</div>
+							<input type="text" class="editor" name="targetVersions" />
+						</dd>
+						<dt><%= tr('Board:') %></dt>
+						<dd>
+							<div class="text">
+								<% if (cache.boards[this.ticket.board]) { %><a href="#kanban/<%= escape(this.ticket.board) %>"><%= escape(cache.boards[this.ticket.board].name) %></a><% } else { %><%= escape(this.ticket.board) %><% } %>
+							</div>
+							<select class="editor editable" name="board"></select>
+						</dd>
+						<dt><%= tr('Stage:') %></dt>
+						<dd>
+							<div class="text"><%= escape(this.ticket.stage) %></div>
+							<select class="editor editable" name="stage"></select>
+						</dd>
+						<dt<%= this.ticket.assignee ? '' : ' class="empty"' %>><%= tr('Assignee:') %></dt>
+						<dd<%= this.ticket.assignee ? '' : ' class="empty"' %>>
+							<div class="text">
+								<a href="#user/<%= escape(this.ticket.assignee) %>"><%= escape(this.ticket.assignee) %></a>
+							</div>
+							<select class="editor editable" name="assignee"></select>
+						</dd>
+						<dt<%= this.ticket.estimation ? '' : ' class="empty"' %>><%= tr('Estimated duration:') %></dt>
+						<dd<%= this.ticket.estimation ? '' : ' class="empty"' %>>
+							<div class="text"><%= escape(this.ticket.estimation) %></div>
+							<input type="text" class="editor" name="estimation" />
+						</dd>
+						<dt<%= this.ticket.duration ? '' : ' class="empty"' %>><%= tr('Effective duration:') %></dt>
+						<dd<%= this.ticket.duration ? '' : ' class="empty"' %>>
+							<div class="text"><%= escape(this.ticket.duration) %></div>
+							<input type="text" class="editor" name="duration" />
+						</dd>
+					</dl>
+				</form>
+				<% if (configuration.pokerCards) { %>
+				<form id="poker">
+					<h2><%= tr('Poker') %></h2>
+					<div id="pokerContainer"></div>
+				</form>
+				<% } %>
+				<h2><%= tr('History') %></h2>
+				<table id="history" class="history">
+					<thead>
+						<tr>
+							<th><%= tr('Date') %></th>
+							<th><%= tr('Board') %></th>
+							<th><%= tr('Stage') %></th>
+							<th><%= tr('User') %></th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-	<hr/>
+	<hr />
 	<div class="rightAlign">
 		<button id="delete" data-icon="delete"><%= tr('Delete') %></button>
 	</div>

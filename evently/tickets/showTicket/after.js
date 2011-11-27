@@ -14,7 +14,7 @@ function(e, ticket, comments, cards) {
 		});
 	}
 
-	elem.find('#information').bind('toggled', function() {
+	elem.find('#information').edit(function() {
 		var form = $(this);
 
 		form.find('[name=name]').val(ticket.name);
@@ -30,6 +30,8 @@ function(e, ticket, comments, cards) {
 		return false;
 	});
 
+	elem.find('#addComment [name=text]').change(stopPolling);
+	
 	elem.find('#addComment').submit(function() {
 		var form = $(this);
 
@@ -101,7 +103,7 @@ function(e, ticket, comments, cards) {
  				}
  			});
  		
-	}).bind('toggled', function() {
+	}).edit(function() {
 		var form = $(this);
 		stopPolling();
 
@@ -172,16 +174,23 @@ function(e, ticket, comments, cards) {
 		ticket.component = form.find('[name=component]').val() || undefined;
 
 		var tags = listToArray(form.find('[name=tags]').val());
-		if (tags) {
+		if (tags.length > 0) {
 			tags.sort(caseInsensitiveSortOrder);
 			addTagsToCache(tags);
 			ticket.tags = tags;
 		} else {
 			delete ticket.tags;
 		}
-		
-		ticket.concernedVersions = listToArray(form.find('[name=concernedVersions]').val()) || undefined;
-		ticket.targetVersions = listToArray(form.find('[name=targetVersions]').val()) || undefined;
+
+		ticket.concernedVersions = listToArray(form.find('[name=concernedVersions]').val());
+		if (ticket.concernedVersions.length == 0) {
+			delete ticket.concernedVersions;
+		}
+
+		ticket.targetVersions = listToArray(form.find('[name=targetVersions]').val());
+		if (ticket.targetVersions.length == 0) {
+			delete ticket.targetVersions;
+		}
 
 		var board = form.find('[name=board]').val();
 		var stage = form.find('[name=stage]').val();

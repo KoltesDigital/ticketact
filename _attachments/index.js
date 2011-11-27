@@ -378,7 +378,7 @@ function refreshShortCache(callback) {
 }
 
 $.fn.edit = function(handler) {
-	return $(this).bind('edit', handler);
+	return handler ? $(this).bind('edit', handler) : $(this).trigger('edit');
 };
 
 function editableSelectChange() {
@@ -433,10 +433,8 @@ function ui(elem, optTr) {
 			save.toggle();
 			cancel.toggle();
 
-			form.find('.text,.editor').toggle();
-
-			form.trigger('edit');
-
+			form.find('.text,.editor,.empty').toggle();
+			form.edit();
 			form.find(':input:first').focus();
 		});
 
@@ -446,6 +444,7 @@ function ui(elem, optTr) {
 			cancel.toggle();
 
 			form.find('.text,.editor').toggle();
+			form.find('.empty').toggle();
 		});
 
 		form.submit(function() {

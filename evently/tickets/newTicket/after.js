@@ -7,7 +7,7 @@ function(e) {
 		elem.empty();
 
 		if (board) {
-			elem.append(tr('Selected board overview:'));
+			elem.append('<h2>' + tr('Selected board overview') + '</h2>');
 			
 			var table = $('<table class="smallKanban"/>');
 			elem.append(table);
@@ -135,7 +135,7 @@ function(e) {
 		} else {
 			noBoard();
 		}
-	});
+	}).change();
 
 	form.submit(function() {
 		var name = form.find('[name=name]').val();

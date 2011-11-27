@@ -149,97 +149,8 @@ textarea.small {
 	font-size: 1.4em;
 }
 
-#main > h1 {
-	padding: 0px;
-	margin: 0 0 0 20px;
-}
-
-#main > div {
-	padding: 0px;
-	margin: 0px;
-}
-
-#main form .doesnt {
+#main dl > .empty {
 	display: none;
-}
-
-#main form.editable .editor {
-	display: none;
-}
-
-#main form > div.buttons
-	margin-top: 10px;
-}
-
-#main form > div.buttons > button.save, #main form > div.buttons > button.cancel {
-	display: none;
-}
-
-#main .field {
-	overflow: auto;
-	width: 100%;
-	margin-bottom: 4px;
-}
-
-#main .field > .name {
-	float: left;
-	width: 90px;
-}
-
-#main .field > .value {
-	margin-left: 100px;
-	padding-right: 10px;
-}
-
-#main .none {
-	color: lightgray;
-}
-
-#main .twoColumn {
-	overflow: auto;
-	width: 100%;
-}
-
-#main .twoColumn > .left {
-	float: left;
-	width: 50%;
-	padding: 0;
-}
-
-#main .twoColumn > .left > * {
-	margin-right: 5px;
-}
-
-#main .twoColumn > .right {
-	float: right;
-	width: 50%;
-	padding: 0;
-}
-
-#main .twoColumn > .right > * {
-	margin-left: 5px;
-}
-
-#main .columns {
-	overflow: auto;
-	width: 100%;
-}
-
-#main .columns > * {
-	float: left;
-	padding-right: 20px;
-}
-
-#main .columns > .half {
-	width: 48%;
-}
-
-#main .columns > .third {
-	width: 31%;
-}
-
-#main .columns > .fourth {
-	width: 23%;
 }
 
 #main dl.form {
@@ -263,20 +174,37 @@ textarea.small {
 #main dl.fields > dt {
 	font-size: 1.2em;
 	font-weight: bold;
+	width: 200px;
+	float: left;
 }
 
 #main dl.fields > dd {
-	margin-bottom: 15px;
+	margin: 0 0 10px 200px;
 }
 
-#main .floatRight {
-	display: block;
-	float: right;
-	margin-left: 10px;
+#main form.editable .editor {
+	display: none;
 }
 
-#main .clear {
-	clear: both;
+#main form > div.buttons
+	margin-top: 10px;
+}
+
+#main form > div.buttons > button.save, #main form > div.buttons > button.cancel {
+	display: none;
+}
+
+#main h1 {
+	padding: 0;
+	margin: 0 0 0 20px;
+}
+
+#main h2 {
+	border-bottom: 1px solid #006400;
+}
+
+#main table.history > tbody > tr > td {
+	padding: 5px;
 }
 
 #main .smallKanban > tbody > tr > td > div {
