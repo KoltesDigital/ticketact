@@ -224,6 +224,11 @@ textarea.small {
 	padding: 5px;
 }
 
+#main table.kanban > tbody > tr > td {
+	width: 210px;
+	vertical-align: top;
+}
+
 #main .smallKanban > tbody > tr > td > div {
 	margin: 4px;
 	padding: 2px;
@@ -252,6 +257,25 @@ textarea.small {
 	position: absolute;
 	right: 2px;
 	bottom: 2px;
+}
+
+#main .ticketContainer {
+	overflow: auto;
+}
+
+#main .ticketContainer > a {
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 200px;
+	height: 160px;
+	margin: 5px;
+	padding: 5px;
+	background: #fbfbca;
+}
+
+#main .ticketContainer > a > h2 {
+	margin: 5px;
 }
 
 #menu {
@@ -342,24 +366,4 @@ div.ui-widget-content {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-}
-
-#kanban {
-}
-
-#kanban td {
-	width: 200px;
-	padding: 0;
-}
-
-#kanban td > div {
-	margin: 10px;
-}
-
-#kanban td > div > .ui-widget-header {
-	padding: 4px;
-}
-
-#kanban td > div > .ui-widget-content {
-	padding: 10px;
 }

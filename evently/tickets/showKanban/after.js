@@ -1,64 +1,50 @@
 function(e, board, tickets) {
 	var elem = $(this);
 
-	tickets.sort(function(a, b) {
-		return b.importance - a.importance;
-	});
-
-	function buildTicket(ticket) {
-		var widget = $('<div/>');
-		widget.data('ticket', ticket);
-		widget.addClass('ui-widget ui-state-default ui-corner-all');
-
-		var header = $('<div/>');
-		header.addClass('ui-widget-header');
-		widget.append(header);
-
-		var name = $('<a/>');
-		name.attr('href', '#ticket/' + ticket._id);
-		name.text(ticket.name);
-		header.append(name);
-
-		var content = $('<div/>');
-		content.addClass('ui-widget-content');
-		widget.append(content);
-
-		var description = $('<div/>');
-		description.text(ticket.description);
-		content.append(description);
-
-		return widget;
-	}
-
 	var thead = elem.find('#kanban>thead>tr');
 	var tbody = elem.find('#kanban>tbody>tr');
 
 	var stages = {};
 
-	$.each(board.stages, function(i, stage) {
+	function appendStage(stage) {
 		var th = $('<th/>');
 		th.text(stage);
 		thead.append(th);
-
-		var td = $('<td/>');
-		td.data('stage', stage);
+		
+		var td = $('<td class="ticketContainer"/>');
 		tbody.append(td);
-
+		
+		td.data('stage', stage);
+		
 		stages[stage] = td;
+	}
+
+	function buildTicket(ticket) {
+		return $('<a class="ui-corner-all ui-state-default"/>').
+			attr('href', '#ticket/' + ticket._id).
+			data('ticket', ticket).
+			append(
+				$('<h2/>').text(ticket.name)
+			).append(
+				$('<div/>').text(ticket.description)
+			);
+	}
+
+	var otherTickets = elem.find('#otherTickets');
+	
+	$.each(board.stages, function(i, stage) {
+		appendStage(stage);
 	});
 
 	$.each(tickets, function(i, ticket) {
-		var div = buildTicket(ticket);
-
-		if (stages[ticket.stage]) {
-			stages[ticket.stage].append(div);
-		} else {
-			elem.find('#otherTickets').append(div);
+		if (!stages[ticket.stage]) {
+			appendStage(ticket.stage);
 		}
+		stages[ticket.stage].append(buildTicket(ticket));
 	});
 
-	elem.find('td').sortable({
-		connectWith: '#kanban td',
+	elem.find('.ticketContainer').sortable({
+		connectWith: '.ticketContainer',
 		update: function(e, ui) {
 			if (ui.sender) {
 				var ticket = $(ui.item).data('ticket');

@@ -32,7 +32,7 @@ var configuration = {
 		'100+',
 		'Don\'t know'
 	],
-	bugViewETagsIncludeDocs: true
+	bugViewETagsIncludeDocs: false
 };
 
 // http://lehelk.com/2011/05/06/script-to-remove-diacritics/
