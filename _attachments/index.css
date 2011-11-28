@@ -264,17 +264,34 @@ textarea.small {
 }
 
 #main .ticketContainer > a {
-	float: left;
-	position: relative;
-	overflow: hidden;
-	width: 200px;
-	height: 160px;
-	margin: 5px;
-	padding: 5px;
-	background: #fbfbca;
 }
 
-#main .ticketContainer > a > h2 {
+#main .ticket {
+	float: left;
+	position: relative;
+	width: 400px;
+	height: 276px;
+	margin: 5px;
+	padding: 0;
+	background: url('images/ticket.png') no-repeat;
+}
+
+#main .ticket > .pin {
+	position: absolute;
+	left: 174px;
+	top: 4px;
+	width: 44px;
+	height: 48px;
+	background: url('images/pin.png') no-repeat;
+	border-radius: 32px;
+}
+
+#main .ticket > .text {
+	overflow: hidden;
+	margin: 80px 30px;
+}
+
+#main .ticket > .text > h2 {
 	margin: 5px;
 }
 

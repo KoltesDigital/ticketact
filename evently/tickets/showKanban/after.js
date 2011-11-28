@@ -20,13 +20,19 @@ function(e, board, tickets) {
 	}
 
 	function buildTicket(ticket) {
-		return $('<a class="ui-corner-all ui-state-default"/>').
+		return $('<a class="ticket"/>').
 			attr('href', '#ticket/' + ticket._id).
 			data('ticket', ticket).
 			append(
-				$('<h2/>').text(ticket.name)
+				$('<div class="pin"/>').
+					css('background-color', ticket.color || 'black')
 			).append(
-				$('<div/>').text(ticket.description)
+				$('<div class="text"/>').
+					append(
+						$('<h2/>').text(ticket.name)
+					).append(
+						$('<p/>').text(ticket.description)
+					)
 			);
 	}
 

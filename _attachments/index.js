@@ -244,6 +244,13 @@ function listToArrayNull(str) {
 	return str.split(regexp.list);
 }
 
+function lpad(str, pad, len) {
+	if (str) {
+	    str = Array(len + 1 - str.length).join(pad) + str;
+	}
+    return str;
+}
+
 function nl2br(str) {
 	return str && str.toString().replace(regexp.eol, '<br/>');
 }
@@ -259,6 +266,13 @@ function removeDiacritics(str) {
 		}
 	}
 	return str;
+}
+
+function rpad(str, pad, length) {
+	if (str) {
+	    str = str + Array(len + 1 - str.length).join(pad);
+	}
+    return str;
 }
 
 function trim(str) {
