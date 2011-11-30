@@ -149,11 +149,9 @@ var regexp = {
 	url: /[^\w_\-\.]+/g
 };
 
-function autocompleteKeydown(event) {
-	if (event.keyCode === $.ui.keyCode.TAB && $(this).data('autocomplete').menu.active) {
-		event.preventDefault();
-	}
-}
+var now = Date.now || function() {
+	return new Date().getTime();
+};
 
 function calculate(expression) {
 	try {
@@ -162,16 +160,6 @@ function calculate(expression) {
 		}
 	} catch(e) {
 	}
-}
-
-function capitalize(str) {
-	if (str) {
-		str = str.toString();
-		if (str.length > 0) {
-			str = str.charAt(0).toUpperCase() + str.substr(1);
-		}
-	}
-	return str;
 }
 
 function caseInsensitiveSortOrder(a, b) {
@@ -223,12 +211,16 @@ function equal(a, b) {
 	return a === b;
 };
 
+function isPrintable(v) {
+	return typeof v === 'number' || typeof v === 'string';
+}
+
 function escape(str) {
-	return str && new String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	return str.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function isEmpty(str) {
-	return !str || regexp.empty.test(str);
+	return typeof str === 'string' && regexp.empty.test(str);
 }
 
 function listToArray(str) {
@@ -245,22 +237,16 @@ function listToArrayNull(str) {
 }
 
 function lpad(str, pad, len) {
-	if (str) {
-	    str = Array(len + 1 - str.length).join(pad) + str;
-	}
-    return str;
+	str = str.toString();
+	return Array(len + 1 - str.length).join(pad) + str;
 }
 
 function nl2br(str) {
-	return str && str.toString().replace(regexp.eol, '<br/>');
-}
-
-function now() {
-	return Date.now ? Date.now(): new Date().getTime();
+	return str.toString().replace(regexp.eol, '<br/>');
 }
 
 function removeDiacritics(str) {
-	if (str) {
+	if (typeof str === 'string') {
 		for (var base in diacritics) {
 			str = str.replace(diacritics[base], base);
 		}
@@ -268,19 +254,17 @@ function removeDiacritics(str) {
 	return str;
 }
 
-function rpad(str, pad, length) {
-	if (str) {
-	    str = str + Array(len + 1 - str.length).join(pad);
-	}
-    return str;
+function rpad(str, pad, len) {
+	str = str.toString();
+	return str + Array(len + 1 - str.length).join(pad);
 }
 
 function trim(str) {
-	return str && str.toString().replace(regexp.trim, '');
+	return str.toString().replace(regexp.trim, '');
 }
 
 function urlify(str) {
-	return str && removeDiacritics(trim(str)).replace(regexp.url, '-').toLowerCase();
+	return removeDiacritics(trim(str)).replace(regexp.url, '-').toLowerCase();
 }
 
 function addUserToCache(user) {
@@ -390,6 +374,12 @@ function refreshShortCache(callback) {
 $.fn.edit = function(handler) {
 	return handler ? $(this).bind('edit', handler) : $(this).trigger('edit');
 };
+
+function autocompleteKeydown(event) {
+	if (event.keyCode === $.ui.keyCode.TAB && $(this).data('autocomplete').menu.active) {
+		event.preventDefault();
+	}
+}
 
 function editableSelectChange() {
 	var sel = $(this);
