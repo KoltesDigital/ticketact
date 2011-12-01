@@ -216,7 +216,7 @@ function isPrintable(v) {
 }
 
 function escape(str) {
-	return str.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	return isPrintable(str) ? str.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : '';
 }
 
 function isEmpty(str) {
